@@ -47,11 +47,38 @@ router.get('/', function(req, res, ) {
       }
     }) .catch(err => console.log(err));
 
+});
 
 
+/* GET SINGLE PRODUCT */
+router.get('/:prodId', (req, res) => {
+  let productId = req.params.prodId;
+  console.log(productId);
 
 
-
+  database.table('products as p')
+    .join([{
+      table: 'categories as c',
+      on: 'c.id = p.cat_id'
+    }])
+    .withFields([
+      'c.title as category',
+      'p.title as name',
+      'p.price',
+      'p.quantity',
+      'p.image',
+      'p.images', // this is only for the single product route
+      'p.id'
+    ])
+    .filter({'p.id': productId}) // p is an alias and should be used in single quotes
+    .get() // so instead of getAll() we are using .get() because we are looking for a single product
+    .then(prod => { // the .then() must come after the .get() because that is the only condition you can chain with .get()
+      if (prod) { // the .get() must come after all other conditions as seen above
+        res.status(200).json(prod);
+      } else {
+        res.json({message: `No product found with product Id ${productId}`});
+      }
+    }) .catch(err => console.log(err));
 
 });
 

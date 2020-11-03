@@ -8,7 +8,7 @@ const app = express();
 
 // Import routes
 const productsRoute = require('./routes/products');
-const usersRoute = require('./routes/users');
+const ordersRoute = require('./routes/orders');
 
 // Use routes
 // app.use('api/products', productsRoute);
@@ -16,10 +16,10 @@ const usersRoute = require('./routes/users');
 // The route above is the route the guy in the video used and i don't know why it's not working
 
 app.use('/products', productsRoute);
-app.use('/users', usersRoute); // This route is working fine so i am going with this
+app.use('/orders', ordersRoute); // This route is working fine so i am going with this
 
 
-
+// Using cors
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'],

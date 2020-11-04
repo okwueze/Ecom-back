@@ -5,6 +5,13 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan'); 
 const cors = require('cors'); 
 const app = express();
+const bodyParser = require('body-parser')
+
+// app.use(express.json());
+
+// Using Body-parser (it has to be used before specifying the route paths)
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // Import routes
 const productsRoute = require('./routes/products');
@@ -17,7 +24,6 @@ const ordersRoute = require('./routes/orders');
 
 app.use('/products', productsRoute);
 app.use('/orders', ordersRoute); // This route is working fine so i am going with this
-
 
 // Using cors
 app.use(cors({

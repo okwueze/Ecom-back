@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const {database} = require('../config/helpers')
 
+
 /* GET ALL PRODUCTS */
 router.get('/', function(req, res, ) {
      
